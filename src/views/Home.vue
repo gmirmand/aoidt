@@ -8,39 +8,24 @@
             </div>
         </md-app-toolbar>
 
-        <md-app-content class="md-layout md-alignment-top-center">
-            <info-card>
-                <template #title :value="1">
-                    Title 1
-                </template>
-            </info-card>
-            <info-card>
-                <template #title :value="1">
-                    Title 1
-                </template>
-            </info-card>
-            <info-card>
-                <template #title :value="1">
-                    Title 1
-                </template>
-            </info-card>
-            <info-card>
-                <template #title :value="1">
-                    Title 1
-                </template>
-            </info-card>
+        <md-app-content>
+            <infos-section
+                    :total-hours="25"
+                    :total-hours-week="10"
+                    :average-week="1.25"
+                    :total-hours-today="4"
+                    :total-hours-next-week="13"
+            ></infos-section>
         </md-app-content>
     </md-app>
 </template>
 
 <script>
-  // @ is an alias to /src
-
-  import InfoCard from "../components/InfoCard";
+  import InfosSection from "../components/InfosSection";
 
   export default {
     name: 'Home',
-    components: {InfoCard},
+    components: {InfosSection},
   }
 </script>
 
