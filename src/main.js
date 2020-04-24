@@ -4,6 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// Match Media
+import MQ from 'vue-match-media/src'
+
+Vue.use(MQ)
+
 // Material design
 import VueMaterial from 'vue-material'
 
@@ -37,5 +42,16 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  render: h => h(App),
+  mq: {
+    xxxs: '(max-width: 20em)', // 320px
+    xxs: '(max-width: 23em)', // 360px
+    xs: '(max-width: 35em)', // 560px
+    s: '(max-width: 48em)', // 768px
+    m: '(max-width:50em)', // 800px
+    l: '(max-width: 62em)', // 992px
+    xl: '(max-width: 75em)', // 1200px
+    xxl: '(max-width: 84em)', // 1344px
+    xxxl: '(max-width: 96em)', // 1536px
+  }
 }).$mount('#app')
