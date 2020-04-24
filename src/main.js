@@ -10,6 +10,7 @@ import VueMaterial from 'vue-material'
 // import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
+import i18n from './i18n'
 
 Vue.use(VueMaterial)
 // Vue.use(MdButton)
@@ -35,5 +36,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

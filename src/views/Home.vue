@@ -2,7 +2,9 @@
     <md-app class="container" md-waterfall md-mode="flexible">
         <md-app-toolbar class="md-large md-primary">
             <div class="md-toolbar-row md-toolbar-offset">
-                <span class="md-display-1">Agenda OIDT</span>
+                <span class="md-display-1">
+                    {{ $t('title') }}
+                </span>
             </div>
         </md-app-toolbar>
 
