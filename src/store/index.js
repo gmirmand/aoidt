@@ -18,6 +18,11 @@ export default new Vuex.Store({
   mutations: {
     addTask(state, payload) {
       state.tasks.push(payload);
+    },
+    deleteTask(state, id) {
+      state.tasks = state.tasks.filter(function (task) {
+        return task.id !== id;
+      });
     }
   },
   actions: {
@@ -29,6 +34,9 @@ export default new Vuex.Store({
         duration: payload.duration,
         time: payload.time
       })
+    },
+    deleteTask(context, id) {
+      context.commit('deleteTask', id)
     }
   },
   modules: {},

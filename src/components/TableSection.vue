@@ -20,7 +20,7 @@
                 </md-table-row>
 
                 <md-table-row v-for="(item, index) of tasks" :key="index">
-                    <md-button class="md-icon-button md-accent">
+                    <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
                         <md-icon>delete</md-icon>
                     </md-button>
                     <md-table-cell md-label="name" md-sort-by="name">
@@ -178,6 +178,9 @@
         if (!this.$v.$invalid) {
           this.saveTask()
         }
+      },
+      deleteTask(item) {
+        this.$store.dispatch('deleteTask', item.id)
       },
       saveTask() {
         this.sending = true
