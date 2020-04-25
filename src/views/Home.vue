@@ -16,16 +16,41 @@
                     :total-hours-today="4"
                     :total-hours-next-week="13"
             ></infos-section>
+
+            <table-section :tasks="tasks"></table-section>
         </md-app-content>
     </md-app>
 </template>
 
 <script>
   import InfosSection from "../components/InfosSection";
+  import TableSection from "../components/TableSection";
 
   export default {
     name: 'Home',
-    components: {InfosSection},
+    components: {TableSection, InfosSection},
+    data() {
+      return {
+        tasks: [
+          {
+            id: 1,
+            name: "Name",
+            importance: 2,
+            duration: 2.5,
+            time: new Date(),
+            index: 2.789
+          },
+          {
+            id: 2,
+            name: "Name",
+            importance: 2,
+            duration: 2.5,
+            time: new Date(),
+            index: 2.789
+          }
+        ]
+      }
+    },
   }
 </script>
 
