@@ -76,7 +76,9 @@
                     </md-table-cell>
                     <md-table-cell md-label="duration" md-sort-by="duration">
                         <md-field :class="getValidationClass('duration')">
-                            <label for="duration">Durée</label>
+                            <label for="duration">
+                                {{ $t('columns.duration.label') }}
+                            </label>
                             <md-input type="number" id="duration" name="duration" v-model="form.duration"
                                       :disabled="sending"/>
                             <span class="md-error"
