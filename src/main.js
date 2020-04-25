@@ -4,6 +4,10 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+import './assets/sass/style.scss'
+
+import './assets/fonts/material-design-icons/material-icons.css'
+
 // Match Media
 import MQ from 'vue-match-media/src'
 
