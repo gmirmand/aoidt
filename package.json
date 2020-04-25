@@ -12,6 +12,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "register-service-worker": "^1.7.1",
+    "uniqid": "^5.2.0",
     "vue": "^2.6.11",
     "vue-i18n": "^8.17.3",
     "vue-match-media": "^1.0.3",

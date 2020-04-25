@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import uniqid from 'uniqid'
+
 import VuexPersistence from 'vuex-persist'
 
 const vuexLocal = new VuexPersistence({
@@ -21,6 +23,7 @@ export default new Vuex.Store({
   actions: {
     addTask(context, payload) {
       context.commit('addTask', {
+        id: uniqid(),
         name: payload.name,
         importance: payload.importance,
         duration: payload.duration,
