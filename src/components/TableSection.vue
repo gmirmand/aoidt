@@ -10,8 +10,10 @@
 
                 <md-table-row>
                     <md-table-head>{{ $t('columns.name.label') }}</md-table-head>
-                    <md-table-head md-numeric>{{ $t('columns.importance.label') }} {{ $t('columns.importance.unit') }}</md-table-head>
-                    <md-table-head md-numeric>{{ $t('columns.duration.label') }} {{ $t('columns.duration.unit') }}</md-table-head>
+                    <md-table-head md-numeric>{{ $t('columns.importance.label') }} {{ $t('columns.importance.unit') }}
+                    </md-table-head>
+                    <md-table-head md-numeric>{{ $t('columns.duration.label') }} {{ $t('columns.duration.unit') }}
+                    </md-table-head>
                     <md-table-head>{{ $t('columns.time.label') }} {{ $t('columns.time.unit') }}</md-table-head>
                     <md-table-head>{{ $t('columns.index.label') }}</md-table-head>
                 </md-table-row>
@@ -169,12 +171,18 @@
       saveTask() {
         this.sending = true
 
-        // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-          this.taskSaved = true
-          this.sending = false
-          this.clearForm()
-        }, 1500)
+        // Sav
+        let payload = {
+          name: this.form.name,
+          importance: this.form.importance,
+          duration: this.form.duration,
+          time: this.form.time
+        };
+        this.$store.dispatch('addTask', payload)
+
+        this.taskSaved = true
+        this.sending = false
+        this.clearForm()
       },
       clearForm() {
         this.$v.$reset()

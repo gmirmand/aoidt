@@ -26,31 +26,14 @@
   import InfosSection from "../components/InfosSection";
   import TableSection from "../components/TableSection";
 
+  import {mapState} from 'vuex'
+
   export default {
     name: 'Home',
     components: {TableSection, InfosSection},
-    data() {
-      return {
-        tasks: [
-          {
-            id: 1,
-            name: "Name",
-            importance: 2,
-            duration: 2.5,
-            time: new Date(),
-            index: 2.789
-          },
-          {
-            id: 2,
-            name: "Name",
-            importance: 2,
-            duration: 2.5,
-            time: new Date(),
-            index: 2.789
-          }
-        ]
-      }
-    },
+    computed: mapState({
+      tasks: state => state.tasks
+    })
   }
 </script>
 
