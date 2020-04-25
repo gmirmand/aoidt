@@ -36,7 +36,7 @@
                         {{ item.time }}
                     </md-table-cell>
                     <md-table-cell md-label="index" md-sort-by="index">
-                        {{ item.index }}
+                        {{ IDTCalculate(item.importance, item.duration, item.time) }}
                     </md-table-cell>
                 </md-table-row>
 
@@ -118,6 +118,7 @@
 
 <script>
   import {validationMixin} from 'vuelidate'
+
   import {
     required,
     minLength,

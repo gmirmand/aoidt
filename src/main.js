@@ -4,6 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// MIXINS
+import './mixins/idtCalculate'
+import './mixins/remainDays'
+
+// Styles
 import './assets/sass/style.scss'
 
 import './assets/fonts/material-design-icons/material-icons.css'
