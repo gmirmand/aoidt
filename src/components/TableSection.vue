@@ -9,40 +9,58 @@
                 </md-table-toolbar>
 
                 <md-table-row>
-                    <md-table-head>Nom</md-table-head>
-                    <md-table-head md-numeric>Importance</md-table-head>
-                    <md-table-head md-numeric>Durée</md-table-head>
-                    <md-table-head>Temps</md-table-head>
-                    <md-table-head>Indice OIDT</md-table-head>
+                    <md-table-head>{{ $t('columns.name.label') }}</md-table-head>
+                    <md-table-head md-numeric>{{ $t('columns.importance.label') }} {{ $t('columns.importance.unit') }}</md-table-head>
+                    <md-table-head md-numeric>{{ $t('columns.duration.label') }} {{ $t('columns.duration.unit') }}</md-table-head>
+                    <md-table-head>{{ $t('columns.time.label') }} {{ $t('columns.time.unit') }}</md-table-head>
+                    <md-table-head>{{ $t('columns.index.label') }}</md-table-head>
                 </md-table-row>
 
                 <md-table-row v-for="(item, index) of tasks" :key="index">
-                    <md-table-cell md-label="name" md-sort-by="name">{{ item.name }}</md-table-cell>
-                    <md-table-cell md-label="importance" md-sort-by="importance" md-numeric>{{ item.importance }}
+                    <md-table-cell md-label="name" md-sort-by="name">
+                        {{ item.name }}
                     </md-table-cell>
-                    <md-table-cell md-label="duration" md-sort-by="duration" md-numeric>{{ item.duration }}
+                    <md-table-cell md-label="importance" md-sort-by="importance" md-numeric>
+                        {{ item.importance }}
                     </md-table-cell>
-                    <md-table-cell md-label="time" md-sort-by="time">{{ item.time }}</md-table-cell>
-                    <md-table-cell md-label="index" md-sort-by="index">{{ item.index }}</md-table-cell>
+                    <md-table-cell md-label="duration" md-sort-by="duration" md-numeric>
+                        {{ item.duration }}
+                    </md-table-cell>
+                    <md-table-cell md-label="time" md-sort-by="time">
+                        {{ item.time }}
+                    </md-table-cell>
+                    <md-table-cell md-label="index" md-sort-by="index">
+                        {{ item.index }}
+                    </md-table-cell>
                 </md-table-row>
 
                 <md-table-row>
                     <md-table-cell md-label="name" md-sort-by="name" md-numeric>
                         <md-field :class="getValidationClass('name')">
-                            <label for="name">Nom</label>
+                            <label for="name">{{ $t('columns.name.label') }}</label>
                             <md-input name="name" id="name" v-model="form.name" :disabled="sending"/>
-                            <span class="md-error" v-if="!$v.form.name.required">Un nom de tâche est requis</span>
-                            <span class="md-error" v-else-if="!$v.form.name.minlength">3 caractères minimum</span>
+                            <span class="md-error" v-if="!$v.form.name.required">
+                                {{ $t('columns.name.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.name.minlength">
+                                {{ $t('columns.name.errors.length') }}
+                            </span>
                         </md-field>
                     </md-table-cell>
                     <md-table-cell md-label="importance" md-sort-by="importance">
                         <md-field :class="getValidationClass('importance')">
-                            <label for="importance">Importance</label>
+                            <label for="importance">
+                                {{ $t('columns.importance.label') }}
+                            </label>
                             <md-input type="number" id="importance" name="importance" v-model="form.importance"
                                       :disabled="sending"/>
                             <span class="md-error"
-                                  v-if="!$v.form.importance.required">Le niveau d'importance est requis</span>
-                            <span class="md-error" v-else-if="!$v.form.importance.maxlength">Doit être compris entre 1 et 5</span>
+                                  v-if="!$v.form.importance.required">
+                                {{ $t('columns.importance.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.importance.between">
+                                {{ $t('columns.importance.errors.between') }}
+                            </span>
                         </md-field>
                     </md-table-cell>
                     <md-table-cell md-label="duration" md-sort-by="duration">
@@ -51,8 +69,12 @@
                             <md-input type="number" id="duration" name="duration" v-model="form.duration"
                                       :disabled="sending"/>
                             <span class="md-error"
-                                  v-if="!$v.form.duration.required">La durée de la tâche est requise</span>
-                            <span class="md-error" v-else-if="!$v.form.duration.maxlength">La durée de la tâche doit être comprise entre 0 et 999</span>
+                                  v-if="!$v.form.duration.required">
+                                {{ $t('columns.duration.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.duration.between">
+                                {{ $t('columns.duration.errors.between') }}
+                            </span>
                         </md-field>
                     </md-table-cell>
                     <md-table-cell md-label="time" md-sort-by="time">
@@ -64,13 +86,15 @@
                                 md-immediately>
                             <label for="time">Temps (échéance)</label>
                             <span class="md-error" v-if="!$v.form.time.required">
-                                Une date d'échéance est requise
+                                {{ $t('columns.time.errors.required') }}
                             </span>
                         </md-datepicker>
                     </md-table-cell>
                     <md-table-cell md-label="index" md-sort-by="index">
                         <md-card-actions>
-                            <md-button type="submit" class="md-primary" :disabled="sending">Create task</md-button>
+                            <md-button type="submit" class="md-primary" :disabled="sending">
+                                {{ $t('submit') }}
+                            </md-button>
                         </md-card-actions>
                     </md-table-cell>
                 </md-table-row>
@@ -184,7 +208,43 @@
 <i18n>
     {
         "fr": {
-            "title": "Mes tâches"
+            "title": "Mes tâches",
+            "columns": {
+                "name": {
+                    "label": "Nom",
+                    "errors": {
+                        "required": "Un nom de tâche est requis",
+                        "length": "3 caractères minimum"
+                    }
+                },
+                "importance": {
+                    "label": "Importance",
+                    "unit": "(de 1 à 5)",
+                    "errors": {
+                        "required": "Le niveau d'importance est requis",
+                        "between": "Doit être compris entre 1 et 5"
+                    }
+                },
+                "duration": {
+                    "label": "Durée",
+                    "unit": "(en heures)",
+                    "errors": {
+                        "required": "Une durée de la tâche est requise",
+                        "between": "Doit être compris entre 0 et 999"
+                    }
+                },
+                "time": {
+                    "label": "Temps",
+                    "unit": "(échéance)",
+                    "errors": {
+                        "required": "Une date d'échéance est requise"
+                    }
+                },
+                "index": {
+                    "label": "Indice IDT"
+                }
+            },
+            "submit": "Créer la tâche"
         }
     }
 </i18n>
