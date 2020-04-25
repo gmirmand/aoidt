@@ -9,6 +9,7 @@
                 </md-table-toolbar>
 
                 <md-table-row>
+                    <md-table-head></md-table-head>
                     <md-table-head>{{ $t('columns.name.label') }}</md-table-head>
                     <md-table-head md-numeric>{{ $t('columns.importance.label') }} {{ $t('columns.importance.unit') }}
                     </md-table-head>
@@ -19,6 +20,9 @@
                 </md-table-row>
 
                 <md-table-row v-for="(item, index) of tasks" :key="index">
+                    <md-button class="md-icon-button md-accent">
+                        <md-icon>delete</md-icon>
+                    </md-button>
                     <md-table-cell md-label="name" md-sort-by="name">
                         {{ item.name }}
                     </md-table-cell>
@@ -37,6 +41,11 @@
                 </md-table-row>
 
                 <md-table-row>
+                    <md-table-cell>
+                        <md-button type="submit" class="md-icon-button md-raised md-primary">
+                            <md-icon>add</md-icon>
+                        </md-button>
+                    </md-table-cell>
                     <md-table-cell md-label="name" md-sort-by="name" md-numeric>
                         <md-field :class="getValidationClass('name')">
                             <label for="name">{{ $t('columns.name.label') }}</label>
