@@ -185,7 +185,6 @@
       saveTask() {
         this.sending = true
 
-        // Sav
         let payload = {
           name: this.form.name,
           importance: this.form.importance,
