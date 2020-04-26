@@ -87,6 +87,7 @@
 <i18n>
     {
         "fr": {
+            "title": "Agenda OIDT",
             "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches."
         }
     }
