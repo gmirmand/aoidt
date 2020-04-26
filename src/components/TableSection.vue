@@ -16,13 +16,16 @@
                     <md-table-cell :md-label="$t('columns.name.label')" md-sort-by="name">
                         {{ item.name }}
                     </md-table-cell>
-                    <md-table-cell :md-label="`${$t('columns.importance.label')} ${$t('columns.importance.unit')}`" md-sort-by="importance" md-numeric>
+                    <md-table-cell :md-label="`${$t('columns.importance.label')} ${$t('columns.importance.unit')}`"
+                                   md-sort-by="importance" md-numeric>
                         {{ item.importance }}
                     </md-table-cell>
-                    <md-table-cell :md-label="`${$t('columns.duration.label')} ${$t('columns.importance.unit')}`" md-sort-by="duration" md-numeric>
+                    <md-table-cell :md-label="`${$t('columns.duration.label')} ${$t('columns.importance.unit')}`"
+                                   md-sort-by="duration" md-numeric>
                         {{ item.duration }}
                     </md-table-cell>
-                    <md-table-cell :md-label="`${$t('columns.time.label')} ${$t('columns.time.unit')}`" md-sort-by="time">
+                    <md-table-cell :md-label="`${$t('columns.time.label')} ${$t('columns.time.unit')}`"
+                                   md-sort-by="time">
                         {{ item.time | date }}
                     </md-table-cell>
                     <md-table-cell :md-label="$t('columns.index.label')" md-sort-by="index">

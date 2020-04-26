@@ -40,16 +40,7 @@ Vue.use(VueMaterial)
 
 // change single option
 Vue.material.locale.dateFormat = 'dd/MM/yyyy'
-
-// change multiple options
-Vue.material = {
-  ...Vue.material,
-  locale: {
-    ...Vue.material.locale,
-    dateFormat: 'dd/MM/yyyy',
-    firstDayOfAWeek: 1
-  }
-}
+Vue.material.locale.firstDayOfAWeek = 1
 
 
 Vue.config.productionTip = false
