@@ -9,6 +9,12 @@
         </md-app-toolbar>
 
         <md-app-content>
+            <div class="home__info md-layout md-elevation-5">
+                <h2 class="md-title">
+                    {{ $t('info-bar') }}
+                </h2>
+            </div>
+            <br>
             <infos-section
                     :total-hours="getTotalHours()"
                     :total-hours-week="getWeekHours()"
@@ -70,4 +76,18 @@
     .md-app-toolbar {
         height: 12.5em;
     }
+
+    .home {
+        &__info {
+            padding: 1em 2em;
+        }
+    }
 </style>
+
+<i18n>
+    {
+        "fr": {
+            "info-bar": "Les données sont enregistrées en sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches."
+        }
+    }
+</i18n>
