@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import IDTCalculate from "../helpers/idtCalculate";
-import {isThisWeek, sub, isAfter} from 'date-fns'
+import {isThisWeek, sub, isAfter, endOfWeek, isSameDay, subWeeks, isSameWeek} from 'date-fns'
+import remainDays from "../helpers/remainDays";
 
 // UniqId
 import uniqid from 'uniqid'
@@ -49,7 +50,11 @@ export default new Vuex.Store({
     getTaskAttrSomme: state => attr => {
       let Somme = 0;
 
-      let tasks = state.tasks
+      const yesterday = sub(new Date(), {days: 1})
+      let tasks = state.tasks.filter(task => {
+        const date = new Date(task.time);
+        return isAfter(date, yesterday)
+      })
 
       tasks.forEach(task => {
         Somme += parseInt(task[attr])
@@ -69,7 +74,39 @@ export default new Vuex.Store({
         Somme += parseInt(task.duration)
       })
       return Somme
-    }
+    },
+    getTaskWeekAverage: (state, getters) => {
+      let remainingDays = remainDays(endOfWeek(new Date(), {weekStartsOn: 1}), true)
+
+      return getters.getTaskWeekSomme / remainingDays
+    },
+    getTaskDaySomme: (state) => {
+      let Somme = 0;
+
+      let tasks = state.tasks.filter(task => {
+        const date = new Date(task.time);
+        return isSameDay(date, new Date());
+      })
+
+      tasks.forEach(task => {
+        Somme += parseInt(task.duration)
+      })
+      return Somme
+    },
+    getTaskNextWeekSomme: state => {
+      let Somme = 0;
+      const nextWeek = subWeeks(new Date(), -1);
+
+      let tasks = state.tasks.filter(task => {
+        const date = new Date(task.time);
+        return isSameWeek(date, nextWeek, {weekStartsOn: 1})
+      })
+
+      tasks.forEach(task => {
+        Somme += parseInt(task.duration)
+      })
+      return Somme
+    },
   },
   modules: {},
   plugins: [vuexLocal.plugin]

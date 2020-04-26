@@ -12,9 +12,9 @@
             <infos-section
                     :total-hours="getTotalHours()"
                     :total-hours-week="getWeekHours()"
-                    :average-week="1.25"
-                    :total-hours-today="4"
-                    :total-hours-next-week="13"
+                    :average-week="getWeekAverage()"
+                    :total-hours-today="getDayHours()"
+                    :total-hours-next-week="getNextWeekHours()"
             ></infos-section>
 
             <table-section :tasks="tasks"></table-section>
@@ -34,15 +34,21 @@
     computed: mapState({
       tasks: state => state.tasks
     }),
-    mounted() {
-      console.log(this.$material.locale.firstDayOfAWeek);
-    },
     methods: {
       getTotalHours() {
         return this.$store.getters.getTaskAttrSomme('duration')
       },
       getWeekHours() {
         return this.$store.getters.getTaskWeekSomme
+      },
+      getWeekAverage() {
+        return this.$store.getters.getTaskWeekAverage
+      },
+      getDayHours() {
+        return this.$store.getters.getTaskDaySomme
+      },
+      getNextWeekHours() {
+        return this.$store.getters.getTaskNextWeekSomme
       }
     },
   }
