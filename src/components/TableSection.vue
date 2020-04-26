@@ -1,7 +1,7 @@
 <template>
     <div class="table-section">
         <form novalidate class="md-layout" @submit.prevent="validateTask">
-            <md-table class="table-section__table" md-sort="index" md-sort-order="desc" v-model="tasks">
+            <md-table class="table-section__table" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" v-model="tasks">
                 <md-table-toolbar>
                     <h2 class="md-title">
                         {{ $t('title') }}
@@ -13,28 +13,99 @@
                         <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
                             <md-icon>delete</md-icon>
                         </md-button>
+                        <md-button type="button" v-show="editingTaskId !== item.id" @click="editTask(item)"
+                                   class="md-icon-button md-primary">
+                            <md-icon>edit</md-icon>
+                        </md-button>
+                        <md-button v-show="editingTaskId === item.id" type="submit" :disabled="sending" class="md-icon-button md-primary">
+                            <md-icon>save</md-icon>
+                        </md-button>
                     </md-table-cell>
                     <md-table-cell :md-label="$t('columns.name.label')" md-sort-by="name">
-                        {{ item.name }}
+                        <span v-if="editingTaskId !== item.id">
+                            {{ item.name }}
+                        </span>
+                        <md-field v-else :class="getValidationClass('name')">
+                            <label for="name-edit">{{ $t('columns.name.label') }}</label>
+                            <md-input name="name" id="name-edit" v-model="form.name" :disabled="sending"/>
+                            <span class="md-error" v-if="!$v.form.name.required">
+                                {{ $t('columns.name.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.name.minlength">
+                                {{ $t('columns.name.errors.length') }}
+                            </span>
+                        </md-field>
                     </md-table-cell>
                     <md-table-cell :md-label="`${$t('columns.importance.label')} ${$t('columns.importance.unit')}`"
                                    md-sort-by="importance" md-numeric>
-                        {{ item.importance }}
+                        <span v-if="editingTaskId !== item.id">
+                            {{ item.importance }}
+                        </span>
+                        <md-field v-else :class="getValidationClass('importance')">
+                            <label for="importance-edit">
+                                {{ $t('columns.importance.label') }}
+                            </label>
+                            <md-input type="number" id="importance-edit" name="importance" v-model="form.importance"
+                                      :disabled="sending"/>
+                            <span class="md-error"
+                                  v-if="!$v.form.importance.required">
+                                {{ $t('columns.importance.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.importance.between">
+                                {{ $t('columns.importance.errors.between') }}
+                            </span>
+                        </md-field>
                     </md-table-cell>
-                    <md-table-cell :md-label="`${$t('columns.duration.label')} ${$t('columns.importance.unit')}`"
-                                   md-sort-by="duration" md-numeric>
-                        {{ item.duration }}
+                    <md-table-cell
+                            :md-label="`${$t('columns.duration.label')} ${$t('columns.importance.unit')}`"
+                            md-sort-by="duration"
+                            md-numeric>
+                        <span v-if="editingTaskId !== item.id">
+                            {{ item.duration }}
+                        </span>
+                        <md-field v-else :class="getValidationClass('duration')">
+                            <label for="duration-edit">
+                                {{ $t('columns.duration.label') }}
+                            </label>
+                            <md-input type="number" id="duration-edit" name="duration" v-model="form.duration"
+                                      :disabled="sending"/>
+                            <span class="md-error"
+                                  v-if="!$v.form.duration.required">
+                                {{ $t('columns.duration.errors.required') }}
+                            </span>
+                            <span class="md-error" v-else-if="!$v.form.duration.between">
+                                {{ $t('columns.duration.errors.between') }}
+                            </span>
+                        </md-field>
                     </md-table-cell>
                     <md-table-cell :md-label="`${$t('columns.time.label')} ${$t('columns.time.unit')}`"
                                    md-sort-by="time">
-                        {{ item.time | date }}
-                        <strong class="table-section__expired-label" v-if="isExpired(item)">{{ $t('columns.time.expired') }}</strong>
+                        <span v-if="editingTaskId !== item.id">
+                            {{ item.time | date }}
+                            <strong class="table-section__expired-label" v-if="isExpired(item)">{{
+                                $t('columns.time.expired') }}
+                            </strong>
+                        </span>
+                        <md-datepicker
+                                v-else
+                                :class="getValidationClass('time')"
+                                id="time-edit" name="time"
+                                v-model="form.time"
+                                :disabled="sending"
+                                md-immediately>
+                            <label for="time-edit">Temps (échéance)</label>
+                            <span class="md-error" v-if="!$v.form.time.required">
+                                {{ $t('columns.time.errors.required') }}
+                            </span>
+                        </md-datepicker>
                     </md-table-cell>
                     <md-table-cell :md-label="$t('columns.index.label')" md-sort-by="index">
                         {{ item.index }}
                     </md-table-cell>
                 </md-table-row>
             </md-table>
+        </form>
+        <form novalidate class="md-layout" @submit.prevent="validateTask">
             <md-table class="table-section__table">
                 <md-table-row>
                     <md-table-cell>
@@ -140,6 +211,9 @@
       },
       sending: false,
       taskSaved: false,
+      editingTaskId: null,
+      currentSort: 'index',
+      currentSortOrder: 'desc',
     }),
     validations: {
       form: {
@@ -183,10 +257,18 @@
       deleteTask(item) {
         this.$store.dispatch('deleteTask', item.id)
       },
+      editTask(item) {
+        this.form.name = item.name
+        this.form.importance = item.importance
+        this.form.duration = item.duration
+        this.form.time = new Date(item.time)
+        this.editingTaskId = item.id
+      },
       saveTask() {
         this.sending = true
 
         let payload = {
+          id: this.editingTaskId,
           name: this.form.name,
           importance: this.form.importance,
           duration: this.form.duration,
@@ -197,6 +279,7 @@
         this.taskSaved = true
         this.sending = false
         this.clearForm()
+        this.editingTaskId = null
       },
       clearForm() {
         this.$v.$reset()

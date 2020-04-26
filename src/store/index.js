@@ -23,7 +23,17 @@ export default new Vuex.Store({
   },
   mutations: {
     addTask(state, payload) {
-      state.tasks.push(payload);
+      let idAlreadyExist = false;
+      state.tasks.forEach((task, index) => {
+        if (task.id === payload.id) {
+          state.tasks[index] = payload
+          idAlreadyExist = true;
+        }
+      })
+
+      if (!idAlreadyExist) {
+        state.tasks.push(payload);
+      }
     },
     deleteTask(state, id) {
       state.tasks = state.tasks.filter(function (task) {
@@ -34,7 +44,7 @@ export default new Vuex.Store({
   actions: {
     addTask(context, payload) {
       context.commit('addTask', {
-        id: uniqid(),
+        id: payload.id || uniqid(),
         name: payload.name,
         importance: payload.importance,
         duration: payload.duration,
