@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import IDTCalculate from "../helpers/idtCalculate";
+import {isThisWeek, sub, isAfter} from 'date-fns'
 
 // UniqId
 import uniqid from 'uniqid'
@@ -22,7 +23,6 @@ export default new Vuex.Store({
   mutations: {
     addTask(state, payload) {
       state.tasks.push(payload);
-      state.tasks.sort((a, b) => new Date(a.time) - new Date(b.time))
     },
     deleteTask(state, id) {
       state.tasks = state.tasks.filter(function (task) {
@@ -46,10 +46,27 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getTaskAttrSomme: state => (attr) => {
+    getTaskAttrSomme: state => attr => {
       let Somme = 0;
-      state.tasks.forEach(task => {
+
+      let tasks = state.tasks
+
+      tasks.forEach(task => {
         Somme += parseInt(task[attr])
+      })
+      return Somme
+    },
+    getTaskWeekSomme: state => {
+      let Somme = 0;
+
+      const yesterday = sub(new Date(), {days: 1})
+      let tasks = state.tasks.filter(task => {
+        const date = new Date(task.time);
+        return isThisWeek(date, {weekStartsOn: 1}) && isAfter(date, yesterday)
+      })
+
+      tasks.forEach(task => {
+        Somme += parseInt(task.duration)
       })
       return Somme
     }

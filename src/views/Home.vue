@@ -10,8 +10,8 @@
 
         <md-app-content>
             <infos-section
-                    :total-hours="25"
-                    :total-hours-week="10"
+                    :total-hours="getTotalHours()"
+                    :total-hours-week="getWeekHours()"
                     :average-week="1.25"
                     :total-hours-today="4"
                     :total-hours-next-week="13"
@@ -33,7 +33,18 @@
     components: {TableSection, InfosSection},
     computed: mapState({
       tasks: state => state.tasks
-    })
+    }),
+    mounted() {
+      console.log(this.$material.locale.firstDayOfAWeek);
+    },
+    methods: {
+      getTotalHours() {
+        return this.$store.getters.getTaskAttrSomme('duration')
+      },
+      getWeekHours() {
+        return this.$store.getters.getTaskWeekSomme
+      }
+    },
   }
 </script>
 
@@ -41,7 +52,7 @@
     .container {
         ::v-deep.md-app-container {
             max-width: 100vw;
-            overflow: hidden;
+            overflow-x: hidden;
         }
     }
 
