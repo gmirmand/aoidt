@@ -1,5 +1,5 @@
 <template>
-    <md-app class="container" md-waterfall md-mode="flexible">
+    <md-app class="container home" md-waterfall md-mode="flexible">
         <md-app-toolbar class="md-large md-primary">
             <div class="md-toolbar-row md-toolbar-offset">
                 <span class="md-display-1">
@@ -23,6 +23,8 @@
                     :total-hours-next-week="getNextWeekHours()"
             ></infos-section>
 
+            <todo-tasks-section v-if="$store.getters.getTasksByIDT.length > 0"></todo-tasks-section>
+
             <table-section :tasks="tasks"></table-section>
         </md-app-content>
     </md-app>
@@ -33,10 +35,11 @@
   import TableSection from "../components/TableSection";
 
   import {mapState} from 'vuex'
+  import TodoTasksSection from "../components/todoTasksSection";
 
   export default {
     name: 'Home',
-    components: {TableSection, InfosSection},
+    components: {TodoTasksSection, TableSection, InfosSection},
     computed: mapState({
       tasks: state => state.tasks
     }),

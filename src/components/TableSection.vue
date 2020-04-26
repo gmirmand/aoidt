@@ -5,7 +5,7 @@
                       v-model="tasks">
                 <md-table-toolbar>
                     <h2 class="md-title">
-                        {{ $t('title') }}
+                        <strong>{{ $t('title') }}</strong>
                     </h2>
                 </md-table-toolbar>
                 <md-table-row slot="md-table-row" slot-scope="{ item }"

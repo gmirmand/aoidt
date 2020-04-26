@@ -44,6 +44,13 @@ export default new Vuex.Store({
       state.tasks.forEach(task => {
         task.index = IDTCalculate(task.importance, task.duration, task.time)
       })
+    },
+    editTask(state, payload) {
+      state.tasks.forEach((task, index) => {
+        if (task.id === payload.id) {
+          state.tasks[index][payload.attr] = payload.value
+        }
+      })
     }
   },
   actions: {
@@ -59,6 +66,10 @@ export default new Vuex.Store({
     },
     deleteTask(context, id) {
       context.commit('deleteTask', id)
+    },
+    editTask(context, payload) {
+      context.commit('editTask', payload)
+      context.commit('recalculateIDT')
     }
   },
   getters: {
@@ -122,6 +133,11 @@ export default new Vuex.Store({
       })
       return Somme
     },
+    getTasksByIDT: state => {
+      return state.tasks.sort((a, b) => {
+        return b.index - a.index
+      }).filter(task => task.index !== 0)
+    }
   },
   modules: {},
   plugins: [vuexLocal.plugin]
