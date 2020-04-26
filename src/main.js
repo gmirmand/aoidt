@@ -4,6 +4,13 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// Date-fns
+import VueDateFns from "vue-date-fns";
+import locale from "date-fns/locale/fr";
+
+Vue.use(VueDateFns, "DD MMMM YYYY", { locale });
+
+
 // MIXINS
 import './mixins/idtCalculate'
 import './mixins/remainDays'

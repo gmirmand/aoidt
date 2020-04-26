@@ -1,45 +1,36 @@
 <template>
     <div class="table-section">
         <form novalidate class="md-layout" @submit.prevent="validateTask">
-            <md-table class="table-section__table">
+            <md-table class="table-section__table" md-sort="index" md-sort-order="desc" v-model="tasks">
                 <md-table-toolbar>
                     <h2 class="md-title">
                         {{ $t('title') }}
                     </h2>
                 </md-table-toolbar>
-
-                <md-table-row>
-                    <md-table-head></md-table-head>
-                    <md-table-head>{{ $t('columns.name.label') }}</md-table-head>
-                    <md-table-head md-numeric>{{ $t('columns.importance.label') }} {{ $t('columns.importance.unit') }}
-                    </md-table-head>
-                    <md-table-head md-numeric>{{ $t('columns.duration.label') }} {{ $t('columns.duration.unit') }}
-                    </md-table-head>
-                    <md-table-head>{{ $t('columns.time.label') }} {{ $t('columns.time.unit') }}</md-table-head>
-                    <md-table-head>{{ $t('columns.index.label') }}</md-table-head>
-                </md-table-row>
-
-                <md-table-row v-for="(item, index) of tasks" :key="index">
-                    <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
-                        <md-icon>delete</md-icon>
-                    </md-button>
-                    <md-table-cell md-label="name" md-sort-by="name">
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                    <md-table-cell>
+                        <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-table-cell>
+                    <md-table-cell :md-label="$t('columns.name.label')" md-sort-by="name">
                         {{ item.name }}
                     </md-table-cell>
-                    <md-table-cell md-label="importance" md-sort-by="importance" md-numeric>
+                    <md-table-cell :md-label="`${$t('columns.importance.label')} ${$t('columns.importance.unit')}`" md-sort-by="importance" md-numeric>
                         {{ item.importance }}
                     </md-table-cell>
-                    <md-table-cell md-label="duration" md-sort-by="duration" md-numeric>
+                    <md-table-cell :md-label="`${$t('columns.duration.label')} ${$t('columns.importance.unit')}`" md-sort-by="duration" md-numeric>
                         {{ item.duration }}
                     </md-table-cell>
-                    <md-table-cell md-label="time" md-sort-by="time">
-                        {{ item.time }}
+                    <md-table-cell :md-label="`${$t('columns.time.label')} ${$t('columns.time.unit')}`" md-sort-by="time">
+                        {{ item.time | date }}
                     </md-table-cell>
-                    <md-table-cell md-label="index" md-sort-by="index">
-                        {{ IDTCalculate(item.importance, item.duration, item.time) }}
+                    <md-table-cell :md-label="$t('columns.index.label')" md-sort-by="index">
+                        {{ item.index }}
                     </md-table-cell>
                 </md-table-row>
-
+            </md-table>
+            <md-table class="table-section__table">
                 <md-table-row>
                     <md-table-cell>
                         <md-button type="submit" class="md-icon-button md-raised md-primary">
