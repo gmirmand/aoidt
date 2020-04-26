@@ -1,6 +1,6 @@
 <template>
     <div class="table-section">
-        <form novalidate class="md-layout" @submit.prevent="validateTask">
+        <form v-if="tasks && tasks.length > 0" novalidate class="md-layout" @submit.prevent="validateTask">
             <md-table class="table-section__table" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder"
                       v-model="tasks">
                 <md-table-toolbar>
@@ -110,6 +110,15 @@
                 </md-table-row>
             </md-table>
         </form>
+        <md-empty-state
+                v-else
+                md-rounded
+                md-icon="add"
+                :md-label="$t('empty.title')"
+                :md-description="$t('empty.description')"
+                class="table-section__empty"
+        >
+        </md-empty-state>
         <form novalidate class="md-layout" @submit.prevent="validateTask">
             <md-table class="table-section__table">
                 <md-table-row>
@@ -330,6 +339,11 @@
         &__expired-label {
             color: red;
         }
+
+        &__empty {
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
     }
 </style>
 
@@ -374,7 +388,11 @@
                     "label": "Indice IDT"
                 }
             },
-            "submit": "Créer la tâche"
+            "submit": "Créer la tâche",
+            "empty": {
+                "title": "Aucune tâche",
+                "description": "Saisie un nom, un niveau d'importance, une durée et un temps. On calcul un indice IDT qui te dira par quelle tâche commencer ;)"
+            }
         }
     }
 </i18n>
