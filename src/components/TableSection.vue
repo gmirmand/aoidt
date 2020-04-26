@@ -46,9 +46,16 @@
                         <md-field v-else :class="getValidationClass('importance')">
                             <label for="importance-edit">
                                 {{ $t('columns.importance.label') }}
+                                {{ $t('columns.importance.unit') }}
                             </label>
-                            <md-input type="number" id="importance-edit" name="importance" v-model="form.importance"
-                                      :disabled="sending"/>
+                            <md-select id="importance-edit" name="importance" v-model="form.importance"
+                                       :disabled="sending">
+                                <md-option value="1">1</md-option>
+                                <md-option value="2">2</md-option>
+                                <md-option value="3">3</md-option>
+                                <md-option value="4">4</md-option>
+                                <md-option value="5">5</md-option>
+                            </md-select>
                             <span class="md-error"
                                   v-if="!$v.form.importance.required">
                                 {{ $t('columns.importance.errors.required') }}
@@ -68,6 +75,7 @@
                         <md-field v-else :class="getValidationClass('duration')">
                             <label for="duration-edit">
                                 {{ $t('columns.duration.label') }}
+                                {{ $t('columns.duration.unit') }}
                             </label>
                             <md-input type="number" id="duration-edit" name="duration" v-model="form.duration"
                                       :disabled="sending"/>
@@ -143,9 +151,16 @@
                         <md-field :class="getValidationClass('importance')">
                             <label for="importance">
                                 {{ $t('columns.importance.label') }}
+                                {{ $t('columns.importance.unit') }}
                             </label>
-                            <md-input type="number" id="importance" name="importance" v-model="form.importance"
-                                      :disabled="sending"/>
+                            <md-select id="importance" name="importance" v-model="form.importance"
+                                       :disabled="sending">
+                                <md-option value="1">1</md-option>
+                                <md-option value="2">2</md-option>
+                                <md-option value="3">3</md-option>
+                                <md-option value="4">4</md-option>
+                                <md-option value="5">5</md-option>
+                            </md-select>
                             <span class="md-error"
                                   v-if="!$v.form.importance.required">
                                 {{ $t('columns.importance.errors.required') }}
@@ -159,6 +174,7 @@
                         <md-field :class="getValidationClass('duration')">
                             <label for="duration">
                                 {{ $t('columns.duration.label') }}
+                                {{ $t('columns.duration.unit') }}
                             </label>
                             <md-input type="number" id="duration" name="duration" v-model="form.duration"
                                       :disabled="sending"/>
@@ -361,7 +377,7 @@
                 },
                 "importance": {
                     "label": "Importance",
-                    "unit": "(de 1 à 5)",
+                    "unit": "(sur 5)",
                     "errors": {
                         "required": "Le niveau d'importance est requis",
                         "between": "Doit être compris entre 1 et 5"
