@@ -1,7 +1,8 @@
 <template>
     <div class="table-section">
         <form novalidate class="md-layout" @submit.prevent="validateTask">
-            <md-table class="table-section__table" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" v-model="tasks">
+            <md-table class="table-section__table" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder"
+                      v-model="tasks">
                 <md-table-toolbar>
                     <h2 class="md-title">
                         {{ $t('title') }}
@@ -17,7 +18,8 @@
                                    class="md-icon-button md-primary">
                             <md-icon>edit</md-icon>
                         </md-button>
-                        <md-button v-show="editingTaskId === item.id" type="submit" :disabled="sending" class="md-icon-button md-primary">
+                        <md-button v-show="editingTaskId === item.id" type="submit" :disabled="sending"
+                                   class="md-icon-button md-primary">
                             <md-icon>save</md-icon>
                         </md-button>
                     </md-table-cell>
@@ -236,6 +238,9 @@
           required,
         },
       }
+    },
+    mounted() {
+      this.$store.commit('recalculateIDT')
     },
     methods: {
       isExpired(item) {

@@ -39,6 +39,11 @@ export default new Vuex.Store({
       state.tasks = state.tasks.filter(function (task) {
         return task.id !== id;
       });
+    },
+    recalculateIDT(state) {
+      state.tasks.forEach(task => {
+        task.index = IDTCalculate(task.importance, task.duration, task.time)
+      })
     }
   },
   actions: {
