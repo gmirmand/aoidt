@@ -7,7 +7,8 @@
                         {{ $t('title') }}
                     </h2>
                 </md-table-toolbar>
-                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                <md-table-row slot="md-table-row" slot-scope="{ item }"
+                              :class="isExpired(item) && 'table-section__expired'">
                     <md-table-cell>
                         <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
                             <md-icon>delete</md-icon>
@@ -27,6 +28,7 @@
                     <md-table-cell :md-label="`${$t('columns.time.label')} ${$t('columns.time.unit')}`"
                                    md-sort-by="time">
                         {{ item.time | date }}
+                        <strong class="table-section__expired-label" v-if="isExpired(item)">{{ $t('columns.time.expired') }}</strong>
                     </md-table-cell>
                     <md-table-cell :md-label="$t('columns.index.label')" md-sort-by="index">
                         {{ item.index }}
@@ -112,6 +114,7 @@
 
 <script>
   import {validationMixin} from 'vuelidate'
+  import {isBefore} from 'date-fns'
 
   import {
     required,
@@ -158,6 +161,9 @@
       }
     },
     methods: {
+      isExpired(item) {
+        return isBefore(new Date(item.time), new Date)
+      },
       getValidationClass(fieldName) {
         const field = this.$v.form[fieldName]
 
@@ -218,6 +224,14 @@
                 margin-left: 0;
             }
         }
+
+        &__expired {
+            background-color: rgba(red, 0.25);
+        }
+
+        &__expired-label {
+            color: red;
+        }
     }
 </style>
 
@@ -252,6 +266,7 @@
                 "time": {
                     "label": "Temps",
                     "unit": "(échéance)",
+                    "expired": "(Date dépassée)",
                     "errors": {
                         "required": "Une date d'échéance est requise"
                     }
