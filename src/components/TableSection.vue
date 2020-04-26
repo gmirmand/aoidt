@@ -8,7 +8,7 @@
                     </h2>
                 </md-table-toolbar>
                 <md-table-row slot="md-table-row" slot-scope="{ item }"
-                              :class="isExpired(item) && 'table-section__expired'">
+                              :class="[isExpired(item) && 'table-section__expired', isToday(item) && 'table-section__today']">
                     <md-table-cell>
                         <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
                             <md-icon>delete</md-icon>
@@ -84,6 +84,9 @@
                             {{ item.time | date }}
                             <strong class="table-section__expired-label" v-if="isExpired(item)">{{
                                 $t('columns.time.expired') }}
+                            </strong>
+                            <strong class="table-section__expired-label" v-if="isToday(item)">{{
+                                $t('columns.time.today') }}
                             </strong>
                         </span>
                         <md-datepicker
@@ -185,7 +188,7 @@
 
 <script>
   import {validationMixin} from 'vuelidate'
-  import {isBefore} from 'date-fns'
+  import {isBefore, add, isToday} from 'date-fns'
 
   import {
     required,
@@ -236,7 +239,10 @@
     },
     methods: {
       isExpired(item) {
-        return isBefore(new Date(item.time), new Date)
+        return isBefore(add(new Date(item.time), {days: 1}), new Date)
+      },
+      isToday(item) {
+        return isToday(new Date(item.time));
       },
       getValidationClass(fieldName) {
         const field = this.$v.form[fieldName]
@@ -308,6 +314,10 @@
             }
         }
 
+        &__today {
+            background-color: rgba(red, 0.10);
+        }
+
         &__expired {
             background-color: rgba(red, 0.25);
         }
@@ -350,6 +360,7 @@
                     "label": "Temps",
                     "unit": "(échéance)",
                     "expired": "(Date dépassée)",
+                    "today": "(aujourd'hui)",
                     "errors": {
                         "required": "Une date d'échéance est requise"
                     }
