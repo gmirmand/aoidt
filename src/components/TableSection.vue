@@ -9,7 +9,7 @@
                     </h2>
                 </md-table-toolbar>
                 <md-table-row slot="md-table-row" slot-scope="{ item }"
-                              :class="[isExpired(item) && 'table-section__expired', isToday(item) && 'table-section__today']">
+                              :class="[isExpired(item) && 'table-section__expired', isToday(item) && 'table-section__today', isFinished(item) && 'table-section__finished']">
                     <md-table-cell>
                         <md-button @click="deleteTask(item)" class="md-icon-button md-accent">
                             <md-icon>delete</md-icon>
@@ -269,10 +269,13 @@
     },
     methods: {
       isExpired(item) {
-        return isBefore(add(new Date(item.time), {days: 1}), new Date)
+        return isBefore(add(new Date(item.time), {days: 1}), new Date) && item.duration > 0
       },
       isToday(item) {
         return isToday(new Date(item.time));
+      },
+      isFinished(item) {
+        return item.duration === 0 && item.id !== this.editingTaskId
       },
       getValidationClass(fieldName) {
         const field = this.$v.form[fieldName]
@@ -350,6 +353,11 @@
 
         &__expired {
             background-color: rgba(red, 0.25);
+        }
+
+        &__finished {
+            background-color: rgba(black, 0.25);
+            opacity: 0.25;
         }
 
         &__expired-label {
