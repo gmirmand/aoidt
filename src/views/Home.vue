@@ -9,6 +9,8 @@
         </md-app-toolbar>
 
         <md-app-content>
+            <beta/>
+
             <div class="home__info md-layout md-elevation-5">
                 <h2 class="md-title">
                     {{ $t('info-bar') }}
@@ -53,10 +55,11 @@
   import {mapState} from 'vuex'
   import TodoTasksSection from "../components/todoTasksSection";
   import CookieBanner from "../components/CookieBanner";
+  import Beta from "../components/beta";
 
   export default {
     name: 'Home',
-    components: {CookieBanner, TodoTasksSection, TableSection, InfosSection},
+    components: {Beta, CookieBanner, TodoTasksSection, TableSection, InfosSection},
     computed: mapState({
       tasks: state => state.tasks
     }),
