@@ -35,9 +35,13 @@
                     {{ $t('footer.1') }} <a href="https://twitter.com/Huroyy" target="_blank">Gaëtan Mirmand</a>.
                 </span>
                 <span class="home__footer-mentions">
+                    <md-button class="home__footer-rgpd" @click="showRGPD">
+                        {{ $t('footer.rgpd') }}
+                    </md-button>
                     {{ $t('footer.2') }}{{ new Date().getFullYear() }}
                 </span>
             </div>
+            <cookie-banner></cookie-banner>
         </md-app-content>
     </md-app>
 </template>
@@ -48,10 +52,11 @@
 
   import {mapState} from 'vuex'
   import TodoTasksSection from "../components/todoTasksSection";
+  import CookieBanner from "../components/CookieBanner";
 
   export default {
     name: 'Home',
-    components: {TodoTasksSection, TableSection, InfosSection},
+    components: {CookieBanner, TodoTasksSection, TableSection, InfosSection},
     computed: mapState({
       tasks: state => state.tasks
     }),
@@ -70,6 +75,9 @@
       },
       getNextWeekHours() {
         return this.$store.getters.getTaskNextWeekSomme
+      },
+      showRGPD() {
+        this.$store.commit('setRGPD', null)
       }
     },
   }
@@ -102,6 +110,11 @@
             justify-content: space-between;
             padding: 2em;
         }
+
+        &__footer-mentions {
+            display: flex;
+            align-items: center;
+        }
     }
 </style>
 
@@ -111,6 +124,7 @@
             "title": "Agenda OIDT",
             "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches.",
             "footer": {
+                "rgpd": "Gestion des données",
                 "1": "Site AOIDT développé par",
                 "2": "Tous Droits Réservés - © COPYRIGHT "
             }

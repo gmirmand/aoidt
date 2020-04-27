@@ -4,6 +4,14 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// Analytics
+import VueGtag from "vue-gtag";
+
+Vue.use(VueGtag, {
+  config: { id: "UA-164717250-1" },
+  bootstrap: false
+});
+
 // Date-fns
 import VueDateFns from "vue-date-fns";
 import locale from "date-fns/locale/fr";

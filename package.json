@@ -16,6 +16,7 @@
     "uniqid": "^5.2.0",
     "vue": "^2.6.11",
     "vue-date-fns": "^1.1.0",
+    "vue-gtag": "^1.6.2",
     "vue-i18n": "^8.17.3",
     "vue-match-media": "^1.0.3",
     "vue-material": "^1.0.0-beta-12",

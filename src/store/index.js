@@ -19,7 +19,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    tasks: []
+    tasks: [],
+    rgpd: null
   },
   mutations: {
     addTask(state, payload) {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
           state.tasks[index][payload.attr] = payload.value
         }
       })
+    },
+    setRGPD(state, payload) {
+      state.rgpd = payload
     }
   },
   actions: {
