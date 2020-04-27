@@ -23,9 +23,21 @@
                     :total-hours-next-week="getNextWeekHours()"
             ></infos-section>
 
-            <todo-tasks-section v-if="$store.getters.getTasksByIDT.length > 0"></todo-tasks-section>
+            <md-content>
+                <todo-tasks-section v-if="$store.getters.getTasksByIDT.length > 0"></todo-tasks-section>
+            </md-content>
 
             <table-section :tasks="tasks"></table-section>
+            <br>
+
+            <div class="home__footer md-layout">
+                <span class="home__footer-from">
+                    {{ $t('footer.1') }} <a href="https://twitter.com/Huroyy" target="_blank">Gaëtan Mirmand</a>.
+                </span>
+                <span class="home__footer-mentions">
+                    {{ $t('footer.2') }}{{ new Date().getFullYear() }}
+                </span>
+            </div>
         </md-app-content>
     </md-app>
 </template>
@@ -84,6 +96,12 @@
         &__info {
             padding: 1em 2em;
         }
+
+        &__footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 2em;
+        }
     }
 </style>
 
@@ -91,7 +109,11 @@
     {
         "fr": {
             "title": "Agenda OIDT",
-            "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches."
+            "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches.",
+            "footer": {
+                "1": "Site AOIDT développé par",
+                "2": "Tous Droits Réservés - © COPYRIGHT "
+            }
         }
     }
 </i18n>

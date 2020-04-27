@@ -106,7 +106,9 @@
                                 v-model="form.time"
                                 :disabled="sending"
                                 md-immediately>
-                            <label for="time-edit">Temps (échéance)</label>
+                            <label for="time-edit">
+                                {{ $t('columns.time.label') }} {{ $t('columns.time.unit') }}
+                            </label>
                             <span class="md-error" v-if="!$v.form.time.required">
                                 {{ $t('columns.time.errors.required') }}
                             </span>
@@ -127,89 +129,91 @@
                 class="table-section__empty"
         >
         </md-empty-state>
-        <form novalidate class="md-layout" @submit.prevent="validateTask">
-            <md-table class="table-section__table">
-                <md-table-row>
-                    <md-table-cell>
-                        <md-button type="submit" class="md-icon-button md-raised md-primary">
-                            <md-icon>add</md-icon>
-                        </md-button>
-                    </md-table-cell>
-                    <md-table-cell md-label="name" md-sort-by="name" md-numeric>
-                        <md-field :class="getValidationClass('name')">
-                            <label for="name">{{ $t('columns.name.label') }}</label>
-                            <md-input name="name" id="name" v-model="form.name" :disabled="sending"/>
-                            <span class="md-error" v-if="!$v.form.name.required">
+        <md-content class="md-scrollbar">
+            <form novalidate class="md-layout" @submit.prevent="validateTask">
+                <md-table class="table-section__table">
+                    <md-table-row>
+                        <md-table-cell>
+                            <md-button type="submit" class="md-icon-button md-raised md-primary">
+                                <md-icon>add</md-icon>
+                            </md-button>
+                        </md-table-cell>
+                        <md-table-cell md-label="name" md-sort-by="name" md-numeric>
+                            <md-field :class="getValidationClass('name')">
+                                <label for="name">{{ $t('columns.name.label') }}</label>
+                                <md-input name="name" id="name" v-model="form.name" :disabled="sending"/>
+                                <span class="md-error" v-if="!$v.form.name.required">
                                 {{ $t('columns.name.errors.required') }}
                             </span>
-                            <span class="md-error" v-else-if="!$v.form.name.minlength">
+                                <span class="md-error" v-else-if="!$v.form.name.minlength">
                                 {{ $t('columns.name.errors.length') }}
                             </span>
-                        </md-field>
-                    </md-table-cell>
-                    <md-table-cell md-label="importance" md-sort-by="importance">
-                        <md-field :class="getValidationClass('importance')">
-                            <label for="importance">
-                                {{ $t('columns.importance.label') }}
-                                {{ $t('columns.importance.unit') }}
-                            </label>
-                            <md-select id="importance" name="importance" v-model="form.importance"
-                                       :disabled="sending">
-                                <md-option value="1">1</md-option>
-                                <md-option value="2">2</md-option>
-                                <md-option value="3">3</md-option>
-                                <md-option value="4">4</md-option>
-                                <md-option value="5">5</md-option>
-                            </md-select>
-                            <span class="md-error"
-                                  v-if="!$v.form.importance.required">
+                            </md-field>
+                        </md-table-cell>
+                        <md-table-cell md-label="importance" md-sort-by="importance">
+                            <md-field :class="getValidationClass('importance')">
+                                <label for="importance">
+                                    {{ $t('columns.importance.label') }}
+                                    {{ $t('columns.importance.unit') }}
+                                </label>
+                                <md-select id="importance" name="importance" v-model="form.importance"
+                                           :disabled="sending">
+                                    <md-option value="1">1</md-option>
+                                    <md-option value="2">2</md-option>
+                                    <md-option value="3">3</md-option>
+                                    <md-option value="4">4</md-option>
+                                    <md-option value="5">5</md-option>
+                                </md-select>
+                                <span class="md-error"
+                                      v-if="!$v.form.importance.required">
                                 {{ $t('columns.importance.errors.required') }}
                             </span>
-                            <span class="md-error" v-else-if="!$v.form.importance.between">
+                                <span class="md-error" v-else-if="!$v.form.importance.between">
                                 {{ $t('columns.importance.errors.between') }}
                             </span>
-                        </md-field>
-                    </md-table-cell>
-                    <md-table-cell md-label="duration" md-sort-by="duration">
-                        <md-field :class="getValidationClass('duration')">
-                            <label for="duration">
-                                {{ $t('columns.duration.label') }}
-                                {{ $t('columns.duration.unit') }}
-                            </label>
-                            <md-input type="number" id="duration" name="duration" v-model="form.duration"
-                                      :disabled="sending"/>
-                            <span class="md-error"
-                                  v-if="!$v.form.duration.required">
+                            </md-field>
+                        </md-table-cell>
+                        <md-table-cell md-label="duration" md-sort-by="duration">
+                            <md-field :class="getValidationClass('duration')">
+                                <label for="duration">
+                                    {{ $t('columns.duration.label') }}
+                                    {{ $t('columns.duration.unit') }}
+                                </label>
+                                <md-input type="number" id="duration" name="duration" v-model="form.duration"
+                                          :disabled="sending"/>
+                                <span class="md-error"
+                                      v-if="!$v.form.duration.required">
                                 {{ $t('columns.duration.errors.required') }}
                             </span>
-                            <span class="md-error" v-else-if="!$v.form.duration.between">
+                                <span class="md-error" v-else-if="!$v.form.duration.between">
                                 {{ $t('columns.duration.errors.between') }}
                             </span>
-                        </md-field>
-                    </md-table-cell>
-                    <md-table-cell md-label="time" md-sort-by="time">
-                        <md-datepicker
-                                :class="getValidationClass('time')"
-                                id="time" name="time"
-                                v-model="form.time"
-                                :disabled="sending"
-                                md-immediately>
-                            <label for="time">Temps (échéance)</label>
-                            <span class="md-error" v-if="!$v.form.time.required">
+                            </md-field>
+                        </md-table-cell>
+                        <md-table-cell md-label="time" md-sort-by="time">
+                            <md-datepicker
+                                    :class="getValidationClass('time')"
+                                    id="time" name="time"
+                                    v-model="form.time"
+                                    :disabled="sending"
+                                    md-immediately>
+                                <label for="time">Temps (échéance)</label>
+                                <span class="md-error" v-if="!$v.form.time.required">
                                 {{ $t('columns.time.errors.required') }}
                             </span>
-                        </md-datepicker>
-                    </md-table-cell>
-                    <md-table-cell md-label="index" md-sort-by="index">
-                        <md-card-actions>
-                            <md-button type="submit" class="md-primary" :disabled="sending">
-                                {{ $t('submit') }}
-                            </md-button>
-                        </md-card-actions>
-                    </md-table-cell>
-                </md-table-row>
-            </md-table>
-        </form>
+                            </md-datepicker>
+                        </md-table-cell>
+                        <md-table-cell md-label="index" md-sort-by="index">
+                            <md-card-actions>
+                                <md-button type="submit" class="md-primary" :disabled="sending">
+                                    {{ $t('submit') }}
+                                </md-button>
+                            </md-card-actions>
+                        </md-table-cell>
+                    </md-table-row>
+                </md-table>
+            </form>
+        </md-content>
     </div>
 </template>
 
