@@ -22,6 +22,7 @@ Vue.use(VueDateFns, "DD MMMM YYYY", { locale });
 // MIXINS
 import './mixins/idtCalculate'
 import './mixins/remainDays'
+import './mixins/gtagEvent'
 
 // Styles
 import './assets/sass/style.scss'

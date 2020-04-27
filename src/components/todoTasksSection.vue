@@ -57,6 +57,9 @@
         if (index) {
           this.active = index
         }
+
+        // Analytics
+        this.gtagEvent('task', 'done', 'a task has been set as done');
       },
     }
   }

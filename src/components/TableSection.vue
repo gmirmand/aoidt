@@ -299,6 +299,9 @@
       },
       deleteTask(item) {
         this.$store.dispatch('deleteTask', item.id)
+
+        // Analytics
+        this.gtagEvent('task', 'delete', 'a task has been deleted');
       },
       editTask(item) {
         this.form.name = item.name
@@ -306,6 +309,9 @@
         this.form.duration = item.duration
         this.form.time = new Date(item.time)
         this.editingTaskId = item.id
+
+        // Analytics
+        this.gtagEvent('task', 'edit', 'a task has been edited');
       },
       saveTask() {
         this.sending = true
@@ -323,6 +329,9 @@
         this.sending = false
         this.clearForm()
         this.editingTaskId = null
+
+        // Analytics
+        this.gtagEvent('task', 'add', 'a task has been created');
       },
       clearForm() {
         this.$v.$reset()
