@@ -129,7 +129,7 @@
                 class="table-section__empty"
         >
         </md-empty-state>
-        <md-content class="md-scrollbar">
+        <md-content class="table-section__add-task">
             <form novalidate class="md-layout" @submit.prevent="validateTask">
                 <md-table class="table-section__table">
                     <md-table-row>
@@ -319,7 +319,7 @@
         let payload = {
           id: this.editingTaskId,
           name: this.form.name,
-          importance: this.form.importance,
+          importance: this.form.importancexf,
           duration: this.form.duration,
           time: this.form.time
         };
@@ -357,6 +357,7 @@
 
         &__table {
             width: 100%;
+            margin-top: 2em;
 
             &.md-card {
                 margin-right: 0;
@@ -403,6 +404,23 @@
 
                 @include breakpoint($breakpoint-m) {
                     font-size: 1em;
+                }
+            }
+        }
+
+        &__add-task {
+            @media screen and (max-width: #{$breakpoint-m}) {
+                ::v-deep.md-table-cell {
+                    border: none;
+                    height: auto;
+
+                    &:first-child {
+                        padding-top: 2em;
+                    }
+                }
+                ::v-deep.md-table-row {
+                    display: flex;
+                    flex-direction: column;
                 }
             }
         }

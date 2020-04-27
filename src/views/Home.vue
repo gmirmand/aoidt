@@ -1,6 +1,6 @@
 <template>
     <md-app class="container home" md-waterfall md-mode="flexible">
-        <md-app-toolbar class="md-large md-primary">
+        <md-app-toolbar class="md-large md-primary home__header">
             <div class="md-toolbar-row md-toolbar-offset">
                 <span class="md-display-1">
                     {{ $t('title') }}
@@ -108,6 +108,10 @@
     }
 
     .home {
+        &__header {
+            z-index: 99;
+        }
+
         &__info {
             padding: 1em 2em;
         }
