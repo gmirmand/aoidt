@@ -30,31 +30,13 @@
 </script>
 
 <style scoped lang="scss">
-    @import "~vue-material/src/theme/engine";
-    @import "~vue-material/src/components/MdLayout/mixins";
-
     // Breakpoints
     @import "src/assets/sass/breakpoints";
     @import "~breakpoint-sass/stylesheets/breakpoint";
 
-    @include md-register-theme("green-card", (
-            primary: md-get-palette-color(green, 500)
-    ));
-
-    @include md-register-theme("black-card", (
-            primary: md-get-palette-color(black, 500)
-    ));
-
-    @include md-register-theme("purple-card", (
-            primary: md-get-palette-color(purple, 500)
-    ));
-
-    @include md-register-theme("orange-card", (
-            primary: md-get-palette-color(orange, 500)
-    ));
-
     .info-card {
         $base: &;
+        margin-bottom: 1em;
 
         &.md-card {
             margin-right: 0;
@@ -64,6 +46,7 @@
                 &__title {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                     font-size: 1.25em;
                     line-height: 1.5;
                     height: 3em;

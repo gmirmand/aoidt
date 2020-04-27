@@ -39,7 +39,7 @@ import VueMaterial from 'vue-material'
 
 // import { MdButton, MdContent, MdTabs } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
+// import 'vue-material/dist/theme/default.css'
 import i18n from './i18n'
 
 Vue.use(VueMaterial)

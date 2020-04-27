@@ -6,5 +6,12 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: true
     }
+  },
+  pwa: {
+    name: 'AOIDT',
+    themeColor: '#f7cb18',
+    msTileColor: '#000000',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
   }
 }

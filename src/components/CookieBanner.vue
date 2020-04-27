@@ -63,7 +63,7 @@
     {
         "fr": {
             "preferences": "Préférences",
-            "encourage": "On a besoin de votre aide !",
+            "encourage": "On a besoin de votre aide ! 🙈",
             "agree": "Accepter les cookies",
             "disagree": "refuser",
             "service": {

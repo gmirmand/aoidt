@@ -345,6 +345,10 @@
 </script>
 
 <style scoped lang="scss">
+    // Breakpoints
+    @import "src/assets/sass/breakpoints";
+    @import "~breakpoint-sass/stylesheets/breakpoint";
+
     .table-section {
         .md-field {
             margin-top: 0;
@@ -380,6 +384,27 @@
         &__empty {
             margin-top: 3em;
             margin-bottom: 3em;
+            max-width: 90vw;
+            max-height: 90vw;
+
+            ::v-deep.md-empty-state-icon {
+                font-size: 8em !important;
+                line-height: 0.8;
+
+                @include breakpoint($breakpoint-m) {
+                    font-size: 14em !important;
+                }
+            }
+
+            ::v-deep.md-empty-state-description {
+                padding: 0 1em;
+                line-height: 1.2;
+                font-size: 0.9em;
+
+                @include breakpoint($breakpoint-m) {
+                    font-size: 1em;
+                }
+            }
         }
     }
 </style>
@@ -428,7 +453,7 @@
             "submit": "Créer la tâche",
             "empty": {
                 "title": "Aucune tâche",
-                "description": "Saisie un nom, un niveau d'importance, une durée et un temps. On calcul un indice IDT qui te dira par quelle tâche commencer ;)"
+                "description": "Saisie un nom, un niveau d'importance, une durée et un temps. On calcul un indice IDT qui te dira par quelle tâche commencer 😎"
             }
         }
     }

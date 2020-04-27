@@ -87,6 +87,10 @@
 </script>
 
 <style scoped lang="scss">
+    // Breakpoints
+    @import "src/assets/sass/breakpoints";
+    @import "~breakpoint-sass/stylesheets/breakpoint";
+
     .container {
         ::v-deep.md-app-container {
             max-width: 100vw;
@@ -110,13 +114,31 @@
 
         &__footer {
             display: flex;
-            justify-content: space-between;
             padding: 2em;
+            justify-content: center;
+
+            @include breakpoint($breakpoint-m) {
+                justify-content: space-between;
+            }
+        }
+
+        &__footer-from {
+            display: flex;
+            align-items: center;
+
+            a {
+                margin-left: 0.5em;
+            }
         }
 
         &__footer-mentions {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+
+            @include breakpoint($breakpoint-m) {
+                align-items: center;
+                flex-direction: row;
+            }
         }
     }
 </style>
