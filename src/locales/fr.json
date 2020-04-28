@@ -1,3 +1,8 @@
 {
-  "title": "Agenda OIDT"
+  "title": "Agenda OIDT",
+  "meta": {
+    "home": {
+      "description": "Agenda ordonné par importance, durée et temps. Bêta. Développée par Gaëtan Mirmand."
+    }
+  }
 }
