@@ -101,7 +101,7 @@ export default new Vuex.Store({
     getTaskWeekAverage: (state, getters) => {
       let remainingDays = remainDays(endOfWeek(new Date(), {weekStartsOn: 1})) + 1
 
-      return (getters.getTaskWeekSomme / remainingDays).toFixed(1);
+      return parseFloat((getters.getTaskWeekSomme / remainingDays).toFixed(1));
     },
     getTaskDaySomme: (state) => {
       let Somme = 0;
