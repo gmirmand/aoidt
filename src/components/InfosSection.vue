@@ -24,14 +24,14 @@
                 {{ $t($mq.l ? 'averageWeek.short' : 'averageWeek.full') }}
             </template>
         </info-card>
-        <info-card :value="totalHoursToday">
-            <template #tooltip-title>
-                {{ $t('totalHoursToday.full') }}
-            </template>
-            <template #title>
-                {{ $t($mq.l ? 'totalHoursToday.short' : 'totalHoursToday.full') }}
-            </template>
-        </info-card>
+<!--        <info-card :value="totalHoursToday">-->
+<!--            <template #tooltip-title>-->
+<!--                {{ $t('totalHoursToday.full') }}-->
+<!--            </template>-->
+<!--            <template #title>-->
+<!--                {{ $t($mq.l ? 'totalHoursToday.short' : 'totalHoursToday.full') }}-->
+<!--            </template>-->
+<!--        </info-card>-->
         <info-card :value="totalHoursNextWeek">
             <template #tooltip-title>
                 {{ $t('totalHoursNextWeek.full') }}

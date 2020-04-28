@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import IDTCalculate from "../helpers/idtCalculate";
-import {isThisWeek, sub, isAfter, endOfWeek, isSameDay, subWeeks, isSameWeek} from 'date-fns'
+import {isBefore, endOfWeek, isSameDay, subWeeks, isSameWeek} from 'date-fns'
 import remainDays from "../helpers/remainDays";
 
 // UniqId
@@ -80,13 +80,7 @@ export default new Vuex.Store({
     getTaskAttrSomme: state => attr => {
       let Somme = 0;
 
-      const yesterday = sub(new Date(), {days: 1})
-      let tasks = state.tasks.filter(task => {
-        const date = new Date(task.time);
-        return isAfter(date, yesterday)
-      })
-
-      tasks.forEach(task => {
+      state.tasks.forEach(task => {
         Somme += parseInt(task[attr])
       })
       return Somme
@@ -94,10 +88,9 @@ export default new Vuex.Store({
     getTaskWeekSomme: state => {
       let Somme = 0;
 
-      const yesterday = sub(new Date(), {days: 1})
       let tasks = state.tasks.filter(task => {
         const date = new Date(task.time);
-        return isThisWeek(date, {weekStartsOn: 1}) && isAfter(date, yesterday)
+        return isBefore(date, endOfWeek(new Date(), {weekStartsOn: 1}))
       })
 
       tasks.forEach(task => {
@@ -108,7 +101,7 @@ export default new Vuex.Store({
     getTaskWeekAverage: (state, getters) => {
       let remainingDays = remainDays(endOfWeek(new Date(), {weekStartsOn: 1})) + 1
 
-      return getters.getTaskWeekSomme / remainingDays
+      return (getters.getTaskWeekSomme / remainingDays).toFixed(1);
     },
     getTaskDaySomme: (state) => {
       let Somme = 0;

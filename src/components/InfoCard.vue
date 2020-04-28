@@ -1,5 +1,5 @@
 <template>
-    <md-card class="info-card md-layout-item md-xsmall-size-50 md-small-size-33 md-size-20 md-primary">
+    <md-card class="info-card md-layout-item md-xsmall-size-50 md-size-25 md-primary">
         <md-tooltip md-direction="bottom">
             <slot name="tooltip-title"></slot>
         </md-tooltip>
