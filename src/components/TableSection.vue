@@ -319,7 +319,7 @@
         let payload = {
           id: this.editingTaskId,
           name: this.form.name,
-          importance: this.form.importancexf,
+          importance: this.form.importance,
           duration: this.form.duration,
           time: this.form.time
         };
