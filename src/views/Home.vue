@@ -36,6 +36,9 @@
                 <span class="home__footer-from">
                     {{ $t('footer.1') }} <a href="https://twitter.com/Huroyy" target="_blank">Gaëtan Mirmand</a>.
                 </span>
+                <a href="https://twitter.com/Huroyy" target="_blank" class="home__footer-issue">
+                    {{ $t('footer.issue') }}
+                </a>
                 <span class="home__footer-mentions">
                     <md-button class="home__footer-rgpd" @click="showRGPD">
                         {{ $t('footer.rgpd') }}
@@ -120,8 +123,15 @@
             display: flex;
             padding: 2em;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
 
-            @include breakpoint($breakpoint-m) {
+            a {
+                text-decoration: underline;
+            }
+
+            @include breakpoint($breakpoint-xxxl) {
+                flex-direction: row;
                 justify-content: space-between;
             }
         }
@@ -133,6 +143,11 @@
             a {
                 margin-left: 0.5em;
             }
+        }
+
+        &__footer-issue {
+            display: flex;
+            align-items: center;
         }
 
         &__footer-mentions {
@@ -153,6 +168,7 @@
             "title": "Agenda OIDT",
             "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches.",
             "footer": {
+                "issue": "Un bug ? Un problême ? Une idée ? Contactez moi sur twitter @Huroyy",
                 "rgpd": "Gestion des données",
                 "1": "Site AOIDT développé par",
                 "2": "Tous Droits Réservés - © COPYRIGHT "
