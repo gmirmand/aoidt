@@ -168,10 +168,20 @@
             "title": "Agenda OIDT",
             "info-bar": "Les données sont enregistrées sur votre appareil. De ce fait, veuillez toujours utiliser le même navigateur sur le même appareil pour conserver vos tâches.",
             "footer": {
-                "issue": "Un bug ? Un problême ? Une idée ? Contactez moi sur twitter @Huroyy",
+                "issue": "Un bug ? Un problème ? Une idée ? Contactez-moi sur twitter @Huroyy",
                 "rgpd": "Gestion des données",
                 "1": "Site AOIDT développé par",
                 "2": "Tous Droits Réservés - © COPYRIGHT "
+            }
+        },
+        "en": {
+            "title": "OIDT Agenda",
+            "info-bar": "Data are stored on your device. Therefore, please always use the same browser on the same device to keep your tasks.",
+            "footer": {
+                "issue": "A bug? A issue? Any ideas? Contact me on twitter @Huroyy",
+                "rgpd": "Data management",
+                "1": "AOIDT website developed by",
+                "2": "All Rights Reserved - © COPYRIGHT "
             }
         }
     }
